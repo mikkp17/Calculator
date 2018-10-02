@@ -77,6 +77,8 @@ public class CalculatorController implements Initializable {
     String firstNumber;
     String secondNumber;
     String resultNumber;
+    String savedNumber;
+    int mathType; // 0 = plus, 1 = minus, 2 = times, 3 = divide
     int calculatorStage; // 0 = first number, 1 = second number, 2 = result
 
     @Override
@@ -88,6 +90,7 @@ public class CalculatorController implements Initializable {
         firstNumber = "";
         secondNumber = "";
         resultNumber = "";
+        savedNumber = "";
         firstNumberCalculation.setText("");
         resultLabel.setText(number);
         savedResultLabel.setText("");
@@ -97,6 +100,7 @@ public class CalculatorController implements Initializable {
     private void numberPressed(ActionEvent event) {
         if (calculatorStage == 2) {
             savedResultLabel.setText(resultNumber);
+            savedNumber = resultNumber;
             resultNumber = "";
             calculatorStage = 0;
         }
@@ -188,27 +192,117 @@ public class CalculatorController implements Initializable {
     }
 
     @FXML
-    private void savePressed(ActionEvent event) {
+    private void mPressed(ActionEvent event) {
+        number = savedNumber;
+        resultLabel.setText(number);
     }
 
     @FXML
     private void delPressed(ActionEvent event) {
+        if (!number.equals("0") && number.length() > 0) {
+            number = number.substring(0, number.length() - 1);
+            if (number.length() == 0) {
+                number = "0";
+            }
+            resultLabel.setText(number);
+        } else if (calculatorStage == 2) {
+            savedResultLabel.setText(resultNumber);
+            savedNumber = resultNumber;
+            resultNumber = "";
+            number = "0";
+            resultLabel.setText(number);
+            calculatorStage = 0;
+        }
     }
 
     @FXML
     private void commaPressed(ActionEvent event) {
+        number += ".";
+        resultLabel.setText(number);
     }
 
     @FXML
     private void dividePressed(ActionEvent event) {
+        if (number.startsWith("0") && number.length() == 1) {
+            // Do Nothing
+        } else if (calculatorStage == 0) {
+            firstNumber = number;
+            firstNumberCalculation.setText(firstNumber + " / ");
+            mathType = 3;
+            calculatorStage++;
+            number = "0";
+            resultLabel.setText(number);
+        } else if (calculatorStage == 1) {
+            secondNumber = number;
+            number = "0";
+
+            Double result = calc.calculate(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber), mathType);
+            if (result % 1 == 0) {
+                resultNumber = Integer.toString(result.intValue());
+            } else {
+                resultNumber = Double.toString(result);
+            }
+            mathType = 3;
+            firstNumber = resultNumber;
+            firstNumberCalculation.setText(firstNumber + " / ");
+            resultLabel.setText(resultNumber);
+        }
     }
 
     @FXML
     private void timesPressed(ActionEvent event) {
+        if (number.startsWith("0") && number.length() == 1) {
+            // Do Nothing
+        } else if (calculatorStage == 0) {
+            firstNumber = number;
+            firstNumberCalculation.setText(firstNumber + " * ");
+            mathType = 2;
+            calculatorStage++;
+            number = "0";
+            resultLabel.setText(number);
+        } else if (calculatorStage == 1) {
+            secondNumber = number;
+            number = "0";
+
+            Double result = calc.calculate(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber), mathType);
+            if (result % 1 == 0) {
+                resultNumber = Integer.toString(result.intValue());
+            } else {
+                resultNumber = Double.toString(result);
+            }
+            mathType = 2;
+            firstNumber = resultNumber;
+            firstNumberCalculation.setText(firstNumber + " * ");
+            resultLabel.setText(resultNumber);
+        }
     }
 
     @FXML
     private void minusPressed(ActionEvent event) {
+        if (number.startsWith("0") && number.length() == 1) {
+            // Do Nothing
+        } else if (calculatorStage == 0) {
+            firstNumber = number;
+            firstNumberCalculation.setText(firstNumber + " - ");
+            mathType = 1;
+            calculatorStage++;
+            number = "0";
+            resultLabel.setText(number);
+        } else if (calculatorStage == 1) {
+            secondNumber = number;
+            number = "0";
+
+            Double result = calc.calculate(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber), mathType);
+            if (result % 1 == 0) {
+                resultNumber = Integer.toString(result.intValue());
+            } else {
+                resultNumber = Double.toString(result);
+            }
+            mathType = 1;
+            firstNumber = resultNumber;
+            firstNumberCalculation.setText(firstNumber + " - ");
+            resultLabel.setText(resultNumber);
+        }
     }
 
     @FXML
@@ -218,6 +312,7 @@ public class CalculatorController implements Initializable {
         } else if (calculatorStage == 0) {
             firstNumber = number;
             firstNumberCalculation.setText(firstNumber + " + ");
+            mathType = 0;
             calculatorStage++;
             number = "0";
             resultLabel.setText(number);
@@ -225,12 +320,13 @@ public class CalculatorController implements Initializable {
             secondNumber = number;
             number = "0";
 
-            Double result = calc.calculate(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber), 0);
+            Double result = calc.calculate(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber), mathType);
             if (result % 1 == 0) {
                 resultNumber = Integer.toString(result.intValue());
             } else {
                 resultNumber = Double.toString(result);
             }
+            mathType = 0;
             firstNumber = resultNumber;
             firstNumberCalculation.setText(firstNumber + " + ");
             resultLabel.setText(resultNumber);
@@ -243,7 +339,7 @@ public class CalculatorController implements Initializable {
             secondNumber = number;
             number = "0";
 
-            Double result = calc.calculate(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber), 0);
+            Double result = calc.calculate(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber), mathType);
             if (result % 1 == 0) {
                 resultNumber = Integer.toString(result.intValue());
             } else {

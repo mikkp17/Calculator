@@ -106,7 +106,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button fx:id="button_S" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onAction="#savePressed" stylesheets="@../css/Button.css" text="M" textFill="WHITE" GridPane.rowIndex="4">
+            <Button fx:id="button_S" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onAction="#mPressed" stylesheets="@../css/Button.css" text="M" textFill="WHITE" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
