@@ -346,10 +346,19 @@ public class CalculatorController implements Initializable {
                 resultNumber = Double.toString(result);
             }
             firstNumber = "";
-            secondNumber = "";
             firstNumberCalculation.setText("");
             resultLabel.setText(resultNumber);
             calculatorStage++;
+        } else if (calculatorStage == 2) {
+            firstNumber = resultNumber;
+            Double result = calc.calculate(Double.parseDouble(firstNumber), Double.parseDouble(secondNumber), mathType);
+            if (result % 1 == 0) {
+                resultNumber = Integer.toString(result.intValue());
+            } else {
+                resultNumber = Double.toString(result);
+            }
+            firstNumberCalculation.setText(firstNumber);
+            resultLabel.setText(resultNumber);
         }
     }
 
