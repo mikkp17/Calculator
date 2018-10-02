@@ -224,7 +224,11 @@ public class CalculatorController implements Initializable {
     @FXML
     private void dividePressed(ActionEvent event) {
         if (number.startsWith("0") && number.length() == 1) {
-            // Do Nothing
+            if (calculatorStage == 2) {
+                firstNumber = resultNumber;
+                mathType = 4;
+                calculatorStage--;
+            }
         } else if (calculatorStage == 0) {
             firstNumber = number;
             firstNumberCalculation.setText(firstNumber + " / ");
@@ -252,7 +256,11 @@ public class CalculatorController implements Initializable {
     @FXML
     private void timesPressed(ActionEvent event) {
         if (number.startsWith("0") && number.length() == 1) {
-            // Do Nothing
+            if (calculatorStage == 2) {
+                firstNumber = resultNumber;
+                mathType = 2;
+                calculatorStage--;
+            }
         } else if (calculatorStage == 0) {
             firstNumber = number;
             firstNumberCalculation.setText(firstNumber + " * ");
@@ -280,7 +288,11 @@ public class CalculatorController implements Initializable {
     @FXML
     private void minusPressed(ActionEvent event) {
         if (number.startsWith("0") && number.length() == 1) {
-            // Do Nothing
+            if (calculatorStage == 2) {
+                firstNumber = resultNumber;
+                mathType = 1;
+                calculatorStage--;
+            }
         } else if (calculatorStage == 0) {
             firstNumber = number;
             firstNumberCalculation.setText(firstNumber + " - ");
@@ -308,7 +320,11 @@ public class CalculatorController implements Initializable {
     @FXML
     private void plusPressed(ActionEvent event) {
         if (number.startsWith("0") && number.length() == 1) {
-            // Do Nothing
+            if (calculatorStage == 2) {
+                firstNumber = resultNumber;
+                mathType = 0;
+                calculatorStage--;
+            }
         } else if (calculatorStage == 0) {
             firstNumber = number;
             firstNumberCalculation.setText(firstNumber + " + ");
