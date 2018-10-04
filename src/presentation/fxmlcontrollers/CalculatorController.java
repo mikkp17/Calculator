@@ -185,6 +185,7 @@ public class CalculatorController implements Initializable {
         firstNumber = "";
         secondNumber = "";
         resultNumber = "";
+        savedNumber = "";
         resultLabel.setText(number);
         savedResultLabel.setText("");
         firstNumberCalculation.setText("");
@@ -226,6 +227,7 @@ public class CalculatorController implements Initializable {
         if (number.startsWith("0") && number.length() == 1) {
             if (calculatorStage == 2) {
                 firstNumber = resultNumber;
+                firstNumberCalculation.setText(firstNumber + " / ");
                 mathType = 4;
                 calculatorStage--;
             }
@@ -258,6 +260,7 @@ public class CalculatorController implements Initializable {
         if (number.startsWith("0") && number.length() == 1) {
             if (calculatorStage == 2) {
                 firstNumber = resultNumber;
+                firstNumberCalculation.setText(firstNumber + " * ");
                 mathType = 2;
                 calculatorStage--;
             }
@@ -290,6 +293,7 @@ public class CalculatorController implements Initializable {
         if (number.startsWith("0") && number.length() == 1) {
             if (calculatorStage == 2) {
                 firstNumber = resultNumber;
+                firstNumberCalculation.setText(firstNumber + " - ");
                 mathType = 1;
                 calculatorStage--;
             }
@@ -322,6 +326,7 @@ public class CalculatorController implements Initializable {
         if (number.startsWith("0") && number.length() == 1) {
             if (calculatorStage == 2) {
                 firstNumber = resultNumber;
+                firstNumberCalculation.setText(firstNumber + " + ");
                 mathType = 0;
                 calculatorStage--;
             }
